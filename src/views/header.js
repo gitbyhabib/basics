@@ -2,6 +2,7 @@ import React from "react";
 
 class Header extends React.Component {
   state = {
+    active: "active",
     name: "habibi",
     title: "keywords are",
     keywords: "",
@@ -9,7 +10,9 @@ class Header extends React.Component {
   };
 
   inputChangeHandle = (event) => {
+    const value = event.target.value === "" ? "active" : "not-active";
     this.setState({
+      active: value,
       keywords: event.target.value,
     });
   };
@@ -20,16 +23,20 @@ class Header extends React.Component {
     }));
   }
   render() {
-    console.log(this.state);
+    console.log(this.props);
+
+    const { title, keywords, count, active } = this.state;
+
     return (
-      <header>
+      /* <header style={{ background: `${active ? "gray" : "red"}` }}> */
+      <header className={active}>
         <div className="logo">Logos</div>
 
-        <input onChange={this.inputChangeHandle} />
+        <input onChange={this.props.keywords} />
 
-        <div>{this.state.title}</div>
-        <div>{this.state.keywords}</div>
-        <div> Count is:{this.state.count}</div>
+        <div>{title}</div>
+        <div>{keywords}</div>
+        <div> Count is:{count}</div>
 
         <button onClick={() => this.addone()}>Add One</button>
       </header>
