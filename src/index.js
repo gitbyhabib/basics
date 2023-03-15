@@ -11,19 +11,28 @@ import "./styles/style.css";
 class App extends Component {
   state = {
     news: JSON,
+    filtered:JSON,
     footerText: "I am happy footer",
   };
 
-  getkeywords = () => {
-    console.log("hey");
+  getkeywords = (event) => {
+    console.log(event.target.value);
+    let keywords = event.target.value;
+    let filtered = this.state.news.filter((item)=>{
+      return item.title.indexOf(keywords)>-1; 
+
+    })
+  this.setState({
+    filtered
+  })
   };
   render() {
-    const { news, footerText } = this.state;
+    const { filtered, footerText } = this.state;
     console.log(this.state.news);
     return (
       <div>
         <Header keywords={this.getkeywords}></Header>
-        <News news={news}>
+        <News news={filtered}>
           <br />
           <h1>I am a Children</h1>
         </News>
